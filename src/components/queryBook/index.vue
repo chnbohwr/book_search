@@ -1,4 +1,5 @@
 <template>
+    <navbar></navbar>
     <div class="mgt10">
         <h3>Search Google Book</h3>
         <div class="form-group">
@@ -16,6 +17,7 @@
 <script>
     import request from 'superagent';
     import book from 'components/book';
+    import navbar from 'components/navbar';
     import {spinner} from 'vue-strap';
     function getBook(){
         let _this = this;
@@ -49,7 +51,11 @@
         data: ()=>(initial_data),
         components: {
             book,
-            spinner
+            spinner,
+            navbar
+        },
+        created: function(){
+            console.log(this);
         }
     }
 </script>

@@ -1,7 +1,9 @@
 <template>
     <div class="panel panel-success">
-        <div class="panel-heading panel-title">
-            {{* bookData.volumeInfo.title}}
+        <div class="panel-heading">
+            <a v-link="{ name: 'book_detail', params: { book_id: bookData.id }}">
+                {{* bookData.volumeInfo.title}}
+            </a>
         </div>
         <div class="panel-body">
             <img :src="bookData.volumeInfo.imageLinks.thumbnail" />
@@ -19,8 +21,13 @@
 </template>
 
 <script>
-
+    function goBookDetail(){
+        console.log(this.bookData);
+    }
     export default {
-        props: ['bookData']
+        props: ['bookData'],
+        methods:{
+            goBookDetail
+        }
     }
 </script>
