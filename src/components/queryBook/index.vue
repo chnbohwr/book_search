@@ -2,16 +2,49 @@
     <div>
         <div class="form-group">
             <label>SearchText</label>
-            <input class="form-control" type="text" maxlength="30" />
-            <button class="btn btn-primary">Search</button>
+            <input class="form-control" type="text" maxlength="30" v-model="searchText" />
+            <button class="btn btn-primary" v-on:click="getBook">Search</button>
         </div>
         <div class="book_area">
+            <book v-for="book in books" :book-data.once="book"></book>
         </div>
     </div>
 </template>
 
 <script>
+    import request from 'superagent';
+    import book from 'components/book';
+
+    function getBook(){
+        let _this = this;
+        const url = 'https://www.googleapis.com/books/v1/volumes';
+        request.get(url).query({q:this.searchText}).end(function(err, res){
+            getBookFinish.call(_this, err, res);
+        });
+    }
+
+    function getBookFinish(err, res){
+        if(err){
+            console.log(err);
+            return;
+        }
+        this.books = res.body.items;
+        this.totalItem = res.body.totalItems;
+    }
+
+    let initial_data = {
+        searchText: '',
+        books: [],
+        totalItem: 0
+    };
+
     export default {
-        
+        methods:{
+            getBook
+        },
+        data: ()=>(initial_data),
+        components: {
+            book
+        }
     }
 </script>
