@@ -1,21 +1,25 @@
 <template>
-    <div>
-        <h4 class="book_title">
+    <div class="panel panel-success">
+        <div class="panel-heading panel-title">
             {{* bookData.volumeInfo.title}}
-        </h4>
-        <p class="book_publisher">
-            {{* bookData.volumeInfo.publisher}}
-        </p>
-        <p class="book_publishedDate">
-            {{* bookData.volumeInfo.book_publishedDate}}
-        </p>
-        <p class="book_description">
-            {{* bookData.volumeInfo.description}}
-        </p>
+        </div>
+        <div class="panel-body">
+            <img :src="bookData.volumeInfo.imageLinks.thumbnail" />
+            <p class="book_publisher">
+                Publisher: {{* bookData.volumeInfo.publisher}}
+            </p>
+            <p class="book_publishedDate">
+                Publish Date: {{* bookData.volumeInfo.book_publishedDate}}
+            </p>
+            <p class="book_description">
+                Description:　{{* bookData.volumeInfo.description}}
+            </p>
+        </div>
     </div>
 </template>
 
 <script>
+
     export default {
         props: ['bookData']
     }
