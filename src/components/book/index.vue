@@ -1,35 +1,21 @@
 <template>
-<!--
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            <a v-link="{ name: 'book_detail', params: { book_id: bookData.id }}">
-                {{* bookData.title}}
-            </a>
-        </div>
-        <div class="panel-body">
-            <img v-if="bookData.image" :src="bookData.image" />
-            <p v-if="bookData.publisher" class="book_publisher">
-                Publisher: {{* bookData.publisher}}
-            </p>
-            
-        </div>
-    </div>
--->
-    <div class="card">
-        <div v-img="random_image" class="background" ></div>
-        <div v-link="{ name: 'book_detail', params: { book_id: bookData.id }}"
-             class="small_img"
-             v-img="bookData.image">
-        </div>
-        <div class="content">
-            <div class="title"> {{ bookData.title }}</div>
-            <div class="author">{{ bookData.author }}</div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card">
+            <div v-img="random_image" class="background" ></div>
+            <div v-link="{ name: 'book_detail', params: { book_id: bookData.id }}"
+                 class="small_img"
+                 v-img="bookData.image">
+            </div>
+            <div class="content">
+                <div class="title"> {{ bookData.title }}</div>
+                <div class="author">{{ bookData.author }}</div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    
+
     function ready(){
         if(this.random_image === ''){
             this.random_image = 'https://unsplash.it/300/100/?image=' + this.bookData.image_code;
@@ -53,9 +39,8 @@
 
 <style scoped="true" lang="less">
     .card {
-        width: 290px;
-        display: inline-block;
-        margin: 10px 10px 10px 0;
+        margin-bottom: 20px;
+        width: 100%;
         border-radius: 5px;
         border: 1px solid #aaa;
         height: 230px;
@@ -88,7 +73,7 @@
                 width: 100%;
                 overflow: hidden;
                 text-overflow:ellipsis;
-                white-space: nowrap;    
+                white-space: nowrap;
             }
         }
         .small_img{
@@ -102,7 +87,7 @@
             background-position: center;
             background-size: cover;
             top: 60px;
-            left: 105px;
+            left: ~"calc(50% - 40px)";
             cursor: pointer;
         }
     }
