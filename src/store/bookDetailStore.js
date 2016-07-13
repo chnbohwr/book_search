@@ -14,7 +14,6 @@ let storeBookDetail = {
         this.state.description = '';
     },
     setBookData: function(data){
-        console.log('setBookData',this);
         this.state.image = data.image;
         this.state.title = data.title;
         this.state.publisher = data.publisher;

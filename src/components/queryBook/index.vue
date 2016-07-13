@@ -4,9 +4,9 @@
         <h3>Search Google Book</h3>
         <div class="form-group">
             <label>SearchText</label>
-            <input class="form-control" type="text" maxlength="30" v-model="searchText" />
+            <input class="form-control" type="text" maxlength="30" v-model="searchText" @keyup.enter="getBook()" />
         </div>
-        <button class="btn btn-primary" v-on:click="getBook">Search</button>
+        <button class="btn btn-primary" v-on:click="getBook()">Search</button>
         <div class="book_area mgt10">
             <book v-for="book in books" :book-data.once="book"></book>
         </div>
@@ -33,7 +33,19 @@
             console.log(err);
             return;
         }
-        this.books = res.body.items;
+        console.log(res.body)
+        this.books = res.body.items.map(function(data){
+            
+            let book_data = {
+                id: data.id,
+                title: data.volumeInfo.title,
+                publisher: data.volumeInfo.publisher
+            };
+            if(data.volumeInfo.imageLinks){
+                book_data.image = data.volumeInfo.imageLinks.thumbnail;
+            }
+            return book_data;
+        });
         this.totalItem = res.body.totalItems;
         this.$refs.spinner.hide();
     }
