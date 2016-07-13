@@ -19,10 +19,11 @@
         <div v-img="random_image" class="background" ></div>
         <div v-link="{ name: 'book_detail', params: { book_id: bookData.id }}"
              class="small_img"
-             :style="{ 'background-image': 'url('+ bookData.image + ')' }">
+             v-img="bookData.image">
         </div>
         <div class="content">
             <div class="title"> {{ bookData.title }}</div>
+            <div class="author">{{ bookData.author }}</div>
         </div>
     </div>
 </template>
@@ -31,7 +32,7 @@
     
     function ready(){
         if(this.random_image === ''){
-            this.random_image = 'https://unsplash.it/300/100/?image=' + Math.floor(Math.random()*1080);
+            this.random_image = 'https://unsplash.it/300/100/?image=' + this.bookData.image_code;
         }
     }
     function goBookDetail(){
@@ -57,7 +58,7 @@
         margin: 10px 10px 10px 0;
         border-radius: 5px;
         border: 1px solid #aaa;
-        height: 200px;
+        height: 230px;
         position: relative;
         overflow: hidden;
         .background{
@@ -74,6 +75,15 @@
             text-align: center;
             padding-top: 50px;
             .title{
+                font-size: 14px;
+                font-weight: 600;
+            }
+            .author{
+                margin-top: 10px;
+                font-size: 10px;
+                font-weight: 100;
+            }
+            *{
                 padding: 0 20px;
                 width: 100%;
                 overflow: hidden;

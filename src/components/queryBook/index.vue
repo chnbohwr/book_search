@@ -45,6 +45,20 @@
             if(data.volumeInfo.imageLinks){
                 book_data.image = data.volumeInfo.imageLinks.thumbnail;
             }
+            if(data.volumeInfo.authors){
+                let str = '';
+                let last_index = data.volumeInfo.authors.length - 1;
+                data.volumeInfo.authors.forEach(function(author, index){
+                    str += author;
+                    if(index !== last_index){
+                        str += ' | ';
+                    }
+                })
+                book_data.author = str;
+            }
+            let image_num = 0;
+            data.id.split('').forEach(function(char){image_num += char.charCodeAt();});
+            book_data.image_code = image_num % 1080;
             return book_data;
         });
         this.totalItem = res.body.totalItems;
