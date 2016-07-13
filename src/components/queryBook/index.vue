@@ -95,10 +95,6 @@
         });
     }
 
-    function onInfinite(){
-
-    }
-
     let initial_data = {
         searchText: '',
         books: [],
