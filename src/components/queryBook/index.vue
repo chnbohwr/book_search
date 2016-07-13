@@ -1,12 +1,13 @@
 <template>
-    <navbar></navbar>
+<!--    <navbar></navbar>-->
     <div class="mgt10">
         <h3>Search Google Book</h3>
-        <div class="form-group">
+        <div class="search-form">
             <label>SearchText</label>
             <input class="form-control" type="text" maxlength="30" v-model="searchText" @keyup.enter="getBook()" />
+            <button class="btn btn-primary" v-on:click="getBook()">Search</button>
         </div>
-        <button class="btn btn-primary" v-on:click="getBook()">Search</button>
+        
         <div class="book_area mgt10">
             <book v-for="book in books" :book-data.once="book"></book>
         </div>
@@ -71,3 +72,20 @@
         }
     }
 </script>
+
+<style scoped="true" lang="less">
+    .search-form{
+        width: 100%;
+        label{
+            
+        }
+        input{
+            max-width: 150px;
+        }
+        
+        *{
+            margin-right: 10px;
+            display: inline-block;
+        }
+    }
+</style>
