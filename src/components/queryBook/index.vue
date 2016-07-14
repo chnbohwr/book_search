@@ -70,7 +70,8 @@
             let book_data = {
                 id: data.id,
                 title: data.volumeInfo.title,
-                publisher: data.volumeInfo.publisher
+                publisher: data.volumeInfo.publisher,
+                description: data.volumeInfo.description || ''
             };
             if(data.volumeInfo.imageLinks){
                 book_data.image = data.volumeInfo.imageLinks.thumbnail;
@@ -106,8 +107,7 @@
 
     export default {
         methods:{
-            getBook,
-            onInfinite
+            getBook
         },
         data: ()=>(initial_data),
         components: {
@@ -116,9 +116,6 @@
             navbar,
             spinner,
             InfiniteLoading
-        },
-        created: function(){
-            console.log(this);
         }
     }
 </script>
