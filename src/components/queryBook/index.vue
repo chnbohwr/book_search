@@ -4,20 +4,20 @@
         <h3>Search Google Book</h3>
         <div class="search-form">
             <label>SearchText</label>
-            <input type="search" class="form-control" type="text" maxlength="30" v-model="searchText" @keyup.enter="getBook(true)" />
+            <input type="search" class="form-control" type="text" maxlength="30" v-el:search_text @keyup.enter="getBook(true)" />
             <button class="btn btn-primary" v-on:click="getBook(true)">Search</button>
         </div>
 
         <div class="mgt10 row">
-            <book v-for="book in books" :book-data.once="book"></book>
+            <book v-for="book in state.searchBook.books" :book-data.once="book"></book>
         </div>
-        <spinner :fixed="true" v-ref:spinner></spinner>
+        
         <alert type="warning" dismissable :show.sync="searchNotFound">
             找不到你想找的東西◢▆▅▄▃崩╰(〒皿〒)╯潰▃▄▅▇
         </alert>
         <infinite-loading :distance="infinite_distance"
             :on-infinite="getBook"
-            v-if="totalItem > 0 && books.length < totalItem">
+            v-if="state.searchBook.totalItem > 0 && state.searchBook.books.length < state.searchBook.totalItem">
         </infinite-loading>
     </div>
 </template>
@@ -28,95 +28,73 @@
     import navbar from 'components/navbar';
     import { alert, spinner } from 'vue-strap';
     import InfiniteLoading from 'vue-infinite-loading';
+    
     function getBook(isClean){
         let _this = this;
+        let search_text = this.$els.search_text.value.trim();
+        if(!search_text) { return; }
+        _this.$action('searchBook:setSearchText', search_text);
         const url = 'https://www.googleapis.com/books/v1/volumes';
         const data = {
-            q:this.searchText,
-            startIndex: this.books.length
+            q: search_text,
+            startIndex: _this.state.searchBook.books.length
         }
         request.get(url).query(data).end(function(err, res){
             getBookFinish.call(_this, err, res);
         });
         if(isClean){
-            this.books = [];
-            this.$refs.spinner.show()
-            this.searchNotFound = false;
+            _this.$action('searchBook:cleanBooks');
+            _this.searchNotFound = false;
         }
     }
 
     function getBookFinish(err, res){
-        this.firstLoad = false;
-        this.$refs.spinner.hide()
-        this.totalItem = res.body.totalItems;
-        this.$broadcast('$InfiniteLoading:loaded');
+        let _this = this;
+        _this.firstLoad = false;
+        _this.state.searchBook.totalItem = res.body.totalItems || 0;
+        _this.$broadcast('$InfiniteLoading:loaded');
+        
         if(err){
-            console.log(err);
+            
             this.totalItem = -1;
             this.searchNotFound = true;
             return;
         }
-        let _this = this;
+        
         if(res.body.items){
-            parseBookData.call(this, res.body.items);
+            _this.$action('searchBook:addBooks', res.body.items);
         } else {
             this.searchNotFound = true;
         }
     }
 
-    function parseBookData(items){
-        let _this = this;
-        items.forEach(function(data){
-            let book_data = {
-                id: data.id,
-                title: data.volumeInfo.title,
-                publisher: data.volumeInfo.publisher,
-                description: data.volumeInfo.description || ''
-            };
-            if(data.volumeInfo.imageLinks){
-                book_data.image = data.volumeInfo.imageLinks.thumbnail;
-            }
-            if(data.volumeInfo.authors){
-                let str = '';
-                let last_index = data.volumeInfo.authors.length - 1;
-                data.volumeInfo.authors.forEach(function(author, index){
-                    str += author;
-                    if(index !== last_index){
-                        str += ' | ';
-                    }
-                })
-                book_data.author = str;
-            }
-            // magic in here
-            let image_num = 0;
-            data.id.split('').forEach(function(char){image_num += char.charCodeAt();});
-            book_data.image_code = image_num % 1080;
-
-            _this.books.push(book_data);
-        });
+    function ready(){
+        this.$els.search_text.value = this.state.searchBook.searchText;
+        
+        // find ele last click and scroll into view
+        if(this.state.searchBook.nowBookId){
+            let q = document.getElementById(this.state.searchBook.nowBookId);
+            q.scrollIntoView(true);
+        }
     }
-
-    let initial_data = {
-        searchText: '',
-        books: [],
-        totalItem: -1,
-        infinite_distance: 200,
-        firstLoad: false,
-        searchNotFound: false
-    };
 
     export default {
         methods:{
             getBook
         },
-        data: ()=>(initial_data),
+        data: ()=>({
+            infinite_distance: 200,
+            firstLoad: false,
+            searchNotFound: false
+        }),
         components: {
             book,
             alert,
             navbar,
             spinner,
             InfiniteLoading
-        }
+        },
+        ready
     }
 </script>
 
