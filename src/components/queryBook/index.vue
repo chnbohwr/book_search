@@ -9,7 +9,7 @@
         </div>
 
         <div class="mgt10 row">
-            <book v-for="book in state.searchBook.books" :book-data.once="book"></book>
+            <book v-for="book in state.searchBook.books" :book-data="book"></book>
         </div>
 
         <alert type="warning" dismissable :show.sync="searchNotFound">

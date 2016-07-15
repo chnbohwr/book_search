@@ -6,7 +6,7 @@
             <div>
                 <ul class="nav navbar-nav">
                     <li><a v-link="{path: '/'}">Search</a></li>
-                    <li><a href="#">Favorites</a></li>
+                    <li><a  v-link="{path: '/favorites'}">Favorites</a></li>
                     <li><a href="#">Link</a></li>
                 </ul>
             </div>
