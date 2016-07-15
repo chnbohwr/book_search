@@ -157,16 +157,13 @@ function ready() {
     this.background_url = 'https://unsplash.it/700/400/?image=' + this.bookData.image_code;
 
     if (isFavorite.call(this)) {
-        console.log('ready is Favorite true^^^^^^^^^')
         this.isFavorite = true;
     } else {
-        console.log('ready is Favorite false')
         this.isFavorite = false;
     }
 }
 
 function goBookDetail() {
-    //console.log(this.bookData);
     this.$action('searchBook:setNowBookId', this.bookData.id);
     this.$router.go({
         name: 'book_detail',
@@ -194,7 +191,6 @@ function isFavorite() {
     let _this = this;
     let find = false
     this.state.favoStore.favorites.forEach(function(book_data) {
-        console.log(_this.bookData.id,  book_data.id);
         if (_this.bookData.id === book_data.id) {
             find = true;
         }
