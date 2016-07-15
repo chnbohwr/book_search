@@ -62,11 +62,11 @@
         margin-bottom: 20px;
         width: 100%;
         border-radius: 5px;
-        border: 1px solid #aaa;
+        border: 1px solid #557091;
         height: 230px;
         position: relative;
         overflow: hidden;
-        
+
         .card_content{
             width: 100%;
             height: 100%;
@@ -104,6 +104,7 @@
             border: none;
             border-radius: 30px;
             transition: .25s all ease;
+            color: #555;
             &:hover{
                 background: rgba(0,0,0,.6);
                 color: #eee;
