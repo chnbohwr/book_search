@@ -12,7 +12,7 @@
             <book v-for="book in state.searchBook.books" :book-data="book"></book>
         </div>
 
-        <alert type="warning" dismissable :show="searchNotFound">
+        <alert type="warning" dismissable :show.sync="searchNotFound">
             找不到你想找的東西◢▆▅▄▃崩╰(〒皿〒)╯潰▃▄▅▇
         </alert>
 

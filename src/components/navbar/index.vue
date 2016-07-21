@@ -5,9 +5,9 @@
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li><a v-link="{path: '/'}">{{ $t('search') }}</a></li>
-                    <li><a v-link="{path: '/favorites'}">{{ $t('favorites') }}</a></li>
-                    <li><a v-link="{path: '/setting'}">{{ $t('setting') }}</a></li>
+                    <li v-link-active><a v-link="{path: '/search'}">{{ $t('search') }}</a></li>
+                    <li v-link-active><a v-link="{path: '/favorites'}">{{ $t('favorites') }}</a></li>
+                    <li v-link-active><a v-link="{path: '/setting'}">{{ $t('setting') }}</a></li>
                 </ul>
             </div>
 
@@ -19,8 +19,15 @@
 
 <style scoped="true" lang="less">
 
-.navbar a{
-    color: #829bb9;
+.navbar {
+    a{
+        color: #829bb9;
+    }
+    li.v-link-active a{
+        text-decoration: none;
+        background-color: #eee
+    }
+
 }
 
 </style>

@@ -5,7 +5,7 @@ import favoriteList from 'components/favoriteList'
 import setting from 'components/setting'
 
 export default {
-    '/': {
+    '/search': {
         component: queryBook
     },
     '/book/:book_id': {

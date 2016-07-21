@@ -18,26 +18,30 @@ import zh_tw from 'i18n/zh-tw.js'
 import es from 'i18n/es.js'
 import vueI18n from 'vue-i18n';
 
-// setting router
-Vue.use(VueRouter);
-const router = new VueRouter();
-router.map(RouterSetting);
-
-// add directive
-Vue.use(img);
-
 // setting store
-Vue.use( VueSimpleStore, {
+Vue.use(VueSimpleStore, {
   stores: [ favoStore, searchBookStore ],
   debug: true
 });
+
+// add directive
+Vue.use(img);
 
 // setting localization
 Vue.use(vueI18n);
 Vue.locale('zh-tw', zh_tw);
 Vue.locale('en-us', en_us);
 Vue.locale('es', es);
-Vue.config.lang = 'zh-tw';
+Vue.config.lang = 'en-us';
+
+// setting router
+Vue.use(VueRouter);
+const router = new VueRouter();
+router.map(RouterSetting);
+router.redirect({
+  // redirect any not-found route to search
+  '*': '/search'
+});
 
 // start App
 router.start({}, '#app')
