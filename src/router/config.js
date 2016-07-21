@@ -2,6 +2,7 @@ import queryBook from 'components/queryBook'
 import bookDetail from 'components/bookDetail'
 import randomName from 'components/randomName'
 import favoriteList from 'components/favoriteList'
+import setting from 'components/setting'
 
 export default {
     '/': {
@@ -16,5 +17,8 @@ export default {
     },
     '/favorites': {
         component: favoriteList
+    },
+    '/setting': {
+      component: setting
     }
 };

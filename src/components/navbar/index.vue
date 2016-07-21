@@ -5,9 +5,9 @@
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li><a v-link="{path: '/'}">Search</a></li>
-                    <li><a  v-link="{path: '/favorites'}">Favorites</a></li>
-                    <li><a href="#">Link</a></li>
+                    <li><a v-link="{path: '/'}">{{ $t('search') }}</a></li>
+                    <li><a v-link="{path: '/favorites'}">{{ $t('favorites') }}</a></li>
+                    <li><a v-link="{path: '/setting'}">{{ $t('setting') }}</a></li>
                 </ul>
             </div>
 

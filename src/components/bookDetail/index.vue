@@ -16,7 +16,7 @@
                     {{ bookData.authors }}
                 </p>
             </div>
-            <button class="btn btn-primary" @click="addFavo()">收藏</button>
+            
         </div>
         <div class="row">
             {{{ bookData.description }}}
@@ -28,14 +28,14 @@
 import request from 'superagent';
 import navbar from 'components/navbar';
 
-function ready (){ 
+function ready (){
     let _this = this;
     const book_id = this.$route.params.book_id;
     const url = 'https://www.googleapis.com/books/v1/volumes/' + book_id;
     request.get(url).end(function(err, res){
         if(!err){
             let v = res.body.volumeInfo;
-            
+
             let parsed_book_data = {
                 id: v.id,
                 image: v.imageLinks.smallThumbnail,
@@ -48,13 +48,13 @@ function ready (){
         }
     });
 }
-    
+
 function addFavo(){
     this.$action('favoStore:addFavo', this.bookData)
 }
 
 function destroyed(){
-    
+
 }
 export default {
     ready,
