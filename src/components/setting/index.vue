@@ -8,7 +8,7 @@
 
 <navbar>
 </navbar>
-<h3>語言</h3>
+<h3>{{ $t('language') }}</h3>
 
 <radio-group :value.sync="lang" type="primary">
     <radio-btn value="zh-tw">繁體中文</radio-btn>
@@ -41,7 +41,7 @@ export default {
     },
     computed: {},
     ready: function() {
-        
+
     },
     attached: function() {},
     methods: {},
