@@ -12,7 +12,7 @@
             <book v-for="book in state.searchBook.books" :book-data.once="book"></book>
         </div>
         
-        <alert type="warning" dismissable :show.sync="searchNotFound">
+        <alert type="warning" dismissable :show.once="searchNotFound">
             找不到你想找的東西◢▆▅▄▃崩╰(〒皿〒)╯潰▃▄▅▇
         </alert>
         <infinite-loading :distance="infinite_distance"
@@ -91,7 +91,6 @@
             book,
             alert,
             navbar,
-            spinner,
             InfiniteLoading
         },
         ready
