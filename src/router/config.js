@@ -13,6 +13,7 @@ export default {
     },
     '/testIE':{
         component:randomName
+    },
     '/favorites': {
         component: favoriteList
     }
