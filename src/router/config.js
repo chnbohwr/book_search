@@ -1,6 +1,8 @@
 import queryBook from 'components/queryBook'
 import bookDetail from 'components/bookDetail'
 import randomName from 'components/randomName'
+import favoriteList from 'components/favoriteList'
+
 export default {
     '/': {
         component: queryBook
@@ -11,5 +13,7 @@ export default {
     },
     '/testIE':{
         component:randomName
+    '/favorites': {
+        component: favoriteList
     }
 };

@@ -1,20 +1,21 @@
 <template>
-<!--    <navbar></navbar>-->
+    <navbar></navbar>
     <div class="mgt10">
-        <h3>Search Google Book</h3>
         <div class="search-form">
-            <label>SearchText</label>
-            <input type="search" class="form-control" type="text" maxlength="30" v-el:search_text @keyup.enter="getBook(true)" />
+            <input type="search" class="form-control"
+            type="text" maxlength="30" v-el:search_text
+            @keyup.enter="getBook(true)" placeholder="input book name" />
             <button class="btn btn-primary" v-on:click="getBook(true)">Search</button>
         </div>
 
         <div class="mgt10 row">
-            <book v-for="book in state.searchBook.books" :book-data.once="book"></book>
+            <book v-for="book in state.searchBook.books" :book-data="book"></book>
         </div>
-        
-        <alert type="warning" dismissable :show.once="searchNotFound">
+
+        <alert type="warning" dismissable :show="searchNotFound">
             找不到你想找的東西◢▆▅▄▃崩╰(〒皿〒)╯潰▃▄▅▇
         </alert>
+        
         <infinite-loading :distance="infinite_distance"
             :on-infinite="getBook"
             v-if="state.searchBook.totalItem > 0 && state.searchBook.books.length < state.searchBook.totalItem">
@@ -28,7 +29,7 @@
     import navbar from 'components/navbar';
     import { alert, spinner } from 'vue-strap';
     import InfiniteLoading from 'vue-infinite-loading';
-    
+
     function getBook(isClean){
         let _this = this;
         let search_text = this.$els.search_text.value.trim();
@@ -53,14 +54,14 @@
         _this.firstLoad = false;
         _this.state.searchBook.totalItem = res.body.totalItems || 0;
         _this.$broadcast('$InfiniteLoading:loaded');
-        
+
         if(err){
-            
+
             this.totalItem = -1;
             this.searchNotFound = true;
             return;
         }
-        
+
         if(res.body.items){
             _this.$action('searchBook:addBooks', res.body.items);
         } else {
@@ -70,7 +71,7 @@
 
     function ready(){
         this.$els.search_text.value = this.state.searchBook.searchText;
-        
+
         // find ele last click and scroll into view
         if(this.state.searchBook.nowBookId){
             let q = document.getElementById(this.state.searchBook.nowBookId);
@@ -100,9 +101,7 @@
 <style scoped="true" lang="less">
     .search-form{
         width: 100%;
-        label{
 
-        }
         input{
             max-width: 150px;
         }
@@ -110,6 +109,7 @@
         *{
             margin-right: 10px;
             display: inline-block;
+            vertical-align: bottom;
         }
     }
 </style>
